@@ -51,6 +51,7 @@ if __name__ == '__main__':
 
         for model_button in model_button_list:
             model_name = model_button.get_text()
+            model_name = model_name.replace("/", ", ")
             model_id = int(model_button["onclick"].replace("selChange('", "")
                                                   .replace("', this)", ""))
             print("\t", model_name, model_id)
@@ -75,6 +76,7 @@ if __name__ == '__main__':
                 if model_id == detail_cat:
                     detail_button = detail_li.find("button")
                     detail_name = detail_button.get_text()
+                    detail_name = detail_name.replace("/", ", ")
                     detail_id = int(detail_button["onclick"].replace("car_depth_cyber('", "")
                                                             .replace("', '2', '', this)", ""))
                     print("\t\t", detail_name, detail_id)
