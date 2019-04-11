@@ -7,9 +7,11 @@ from selenium.common.exceptions import TimeoutException
 
 if __name__ == '__main__':
     root_path = "./car_dir/"
+    if not os.path.isdir(root_path):
+        os.mkdir(root_path)
 
     driver = webdriver.Chrome('./chromedriver/chromedriver')
-    driver.set_page_load_timeout(5)
+    driver.set_page_load_timeout(10)
     url = 'http://www.bobaedream.co.kr/cyber/CyberCar.php'
 
     driver.get(url)
@@ -26,9 +28,9 @@ if __name__ == '__main__':
 
     for maker_button in maker_button_list:
         maker_name = maker_button.get_text()
+        maker_name = maker_name.replace("/", ", ")
         maker_id = int(maker_button["onclick"].replace("car_depth_cyber('", "")
                                               .replace("', 1, '', this);", ""))
-
         print(maker_name, maker_id)
 
         maker_path = root_path+maker_name + "/"
