@@ -11,7 +11,7 @@ if __name__ == '__main__':
         os.mkdir(root_path)
 
     driver = webdriver.Chrome('./chromedriver/chromedriver')
-    driver.set_page_load_timeout(10)
+    driver.set_page_load_timeout(30)
     url = 'http://www.bobaedream.co.kr/cyber/CyberCar.php'
 
     driver.get(url)
@@ -22,6 +22,12 @@ if __name__ == '__main__':
                         .find_all("li")
     maker_button_list = [maker_li.find("button") for maker_li in maker_li_list]
     maker_button_list.pop(0)
+
+    for i, maker_button in enumerate(maker_button_list):
+        print("id : {0}, \t name : {1}".format(i,maker_button.get_text()))
+    start_maker = input("select crawling start maker id : ")
+    print("you select {0}".format(maker_button_list[int(start_maker)].get_text()))
+    maker_button_list = maker_button_list[int(start_maker):]
 
     maker_dic = {}
     model_dic = {}
@@ -70,6 +76,7 @@ if __name__ == '__main__':
                                  .find("ul")\
                                  .find_all("li")
             detail_li_list.pop(0)
+
 
             for detail_li in detail_li_list:
                 detail_cat = int(detail_li["data-gb"][1:])
@@ -129,6 +136,9 @@ if __name__ == '__main__':
 
                                 driver = webdriver.Chrome('./chromedriver/chromedriver')
                                 driver.set_page_load_timeout(5)
+                                continue
+                            except AttributeError:
+                                print("\t\t\t\t\t", "except")
                                 continue
 
                         page_num += 1
